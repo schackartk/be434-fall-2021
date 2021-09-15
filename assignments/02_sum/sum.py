@@ -6,20 +6,16 @@ Purpose: Print the sum of two integers
 """
 
 import argparse
-from typing import NamedTuple, TextIO
+from typing import NamedTuple, List
 
 
-#class Args(NamedTuple):
-#    """ Command-line arguments """
-#    positional: str
-#    string_arg: str
-#    int_arg: int
-#    file: TextIO
-#    on: bool
+class Args(NamedTuple):
+    """ Command-line arguments """
+    int: List[int]
 
 
 # --------------------------------------------------
-def get_args():
+def get_args() -> Args:
     """ Get command-line arguments """
 
     parser = argparse.ArgumentParser(
@@ -32,7 +28,9 @@ def get_args():
                         help='Integers to be added',
                         nargs='+')
 
-    return parser.parse_args()
+    args =  parser.parse_args()
+
+    return Args(args.int)
 
 
 # --------------------------------------------------
