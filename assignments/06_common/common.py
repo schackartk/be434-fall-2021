@@ -49,10 +49,7 @@ def main():
 
     for file in [file_1, file_2]:
         words[file.name] = set()
-        words[file.name].update([word for words in map(str.split, file.readlines()) for word in words])
-        # for line in file:
-        #     for word in line.split():
-        #         words[file.name].add(word)
+        words[file.name].update(file.read().split())
 
     for common in words[file_1.name].intersection(words[file_2.name]):
         print(common, file=args.outfile)
