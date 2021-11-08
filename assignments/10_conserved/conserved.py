@@ -37,10 +37,10 @@ def main():
 
     alignment = ''
     for aligned in list(zip(*seqs)):
-        if all(b == aligned[0] for b in aligned):
-            alignment += '|'
-        else:
-            alignment += 'X'
+        alignment += '|' if all(b == aligned[0] for b in aligned) else 'X'
+        #     alignment += '|'
+        # else:
+        #     alignment += 'X'
 
     print(alignment)
 
