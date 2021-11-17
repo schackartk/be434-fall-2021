@@ -6,7 +6,9 @@ Purpose: DNA compression
 """
 
 import argparse
+from itertools import starmap
 import os
+import re
 
 
 # --------------------------------------------------
@@ -42,25 +44,8 @@ def main():
 def rle(seq):
     """Encode"""
 
-    compressed = ''
-    last_base = ''
-    rep = 1
-
-    for base in seq:
-        if base != last_base:
-            if rep > 1:
-                compressed += str(rep)
-            compressed += base
-            rep = 1
-        else:
-            rep += 1
-        last_base = base
-
-    if rep > 1:
-        compressed += str(rep)
-
-    return compressed
-
+    counts = starmap(lambda s, c: (c, len(s)), re.findall(r'((\w)\2*)', seq))
+    return ''.join(['{}{}'.format(c, '' if n == 1 else n) for c, n in counts])
 
 # --------------------------------------------------
 def test_rle():
